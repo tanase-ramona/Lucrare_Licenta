@@ -43,10 +43,9 @@ const PERIOD_LABELS: Record<Period, string> = {
 
 const COLORS = ["#4f46e5", "#7c3aed", "#06b6d4", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6", "#ec4899"];
 
-function StatCard({ icon, label, value, sub }: { icon: string; label: string; value: string | number; sub?: string }) {
+function StatCard({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
   return (
     <div className="adm-stat-card card">
-      <span className="adm-stat-icon">{icon}</span>
       <div>
         <p className="adm-stat-label">{label}</p>
         <p className="adm-stat-value">{value}</p>
@@ -106,36 +105,29 @@ export default function AdminDashboard() {
       {/* ── Sidebar ── */}
       <aside className="adm-sidebar">
         <div className="adm-sidebar-logo">
-          <span className="adm-logo-icon">⚡</span>
           <span className="adm-logo-text">Admin Panel</span>
         </div>
 
         <nav className="adm-nav">
           <button className="adm-nav-item adm-nav-item-active">
-            <span className="adm-nav-icon">📊</span>
             <span>Dashboard</span>
           </button>
           <button className="adm-nav-item" onClick={() => navigate("/admin/users")}>
-            <span className="adm-nav-icon">👥</span>
             <span>Utilizatori</span>
           </button>
           <button className="adm-nav-item" onClick={() => navigate("/admin/questions/manage")}>
-            <span className="adm-nav-icon">📋</span>
             <span>Întrebări</span>
           </button>
           <button className="adm-nav-item" onClick={() => navigate("/admin/questions")}>
-            <span className="adm-nav-icon">➕</span>
             <span>Adaugă întrebare</span>
           </button>
         </nav>
 
         <div className="adm-sidebar-footer">
           <button className="adm-nav-item" onClick={() => navigate("/")}>
-            <span className="adm-nav-icon">🏠</span>
             <span>Înapoi la app</span>
           </button>
           <button className="adm-nav-item adm-logout-btn" onClick={handleLogout}>
-            <span className="adm-nav-icon">🚪</span>
             <span>Deconectare</span>
           </button>
         </div>
@@ -149,14 +141,6 @@ export default function AdminDashboard() {
             <p className="adm-topbar-sub">Statistici agregate ale platformei</p>
           </div>
           <div className="adm-topbar-right">
-            <a
-              href={`${import.meta.env.VITE_API_BASE_URL ?? ""}/api/admin/export/interviews`}
-              download="interviuri.csv"
-              className="adm-export-btn"
-              title="Descarcă CSV cu toate interviurile"
-            >
-              ↓ Export CSV
-            </a>
             <div className="adm-period-filter">
               {(["1m", "6m", "1y"] as Period[]).map(p => (
                 <button
@@ -180,26 +164,23 @@ export default function AdminDashboard() {
             <>
               {/* ── Stat cards ── */}
               <div className="adm-stats-grid">
-                <StatCard icon="👥" label="Utilizatori totali" value={stats.overview.totalUsers} />
+                <StatCard label="Utilizatori totali" value={stats.overview.totalUsers} />
                 <StatCard
-                  icon="🗂️"
                   label={`Interviuri — ${PERIOD_LABELS[period].toLowerCase()}`}
                   value={stats.overview.interviewsInPeriod}
                   sub={`Total: ${stats.overview.totalInterviews}`}
                 />
                 <StatCard
-                  icon="✅"
                   label={`Finalizate — ${PERIOD_LABELS[period].toLowerCase()}`}
                   value={stats.overview.completedInPeriod}
                   sub={`Total finalizate: ${stats.overview.completedInterviews}`}
                 />
-                <StatCard icon="🏅" label="Scor mediu global" value={`${stats.overview.avgScore}%`} />
+                <StatCard label="Scor mediu global" value={`${stats.overview.avgScore}%`} />
                 <StatCard
-                  icon="🔥"
                   label={`Utilizatori activi — ${PERIOD_LABELS[period].toLowerCase()}`}
                   value={stats.overview.activeUsersInPeriod}
                 />
-                <StatCard icon="🎯" label="Rată de succes" value={`${stats.successRate}%`} sub="scor ≥ 70%" />
+                <StatCard label="Rată de succes" value={`${stats.successRate}%`} sub="scor ≥ 70%" />
               </div>
 
               {/* ── Row 1: Poziții | Nivele ── */}

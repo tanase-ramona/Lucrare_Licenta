@@ -1,17 +1,12 @@
 .setup-container {
-  max-width: 900px;
+  max-width: 640px;
   margin: 0 auto;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
 }
 
 .setup-layout {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 260px;
+  display: flex;
+  flex-direction: column;
   gap: var(--sp-5);
-  align-items: start;
 }
 
 /* ─── Main card ─── */
@@ -122,13 +117,82 @@
   border-top: 1px solid var(--clr-border);
 }
 
-/* ─── Sidebar ─── */
-.setup-sidebar {
+/* ─── Customizable structure ─── */
+.setup-customize-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  width: 100%;
+  background: rgba(109, 40, 217, 0.05);
+  border: 1px solid rgba(109, 40, 217, 0.15);
+  border-radius: var(--r-md);
+  padding: 10px 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--clr-primary);
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--t), border-color var(--t);
+}
+.setup-customize-toggle:hover {
+  background: rgba(109, 40, 217, 0.10);
+  border-color: rgba(109, 40, 217, 0.28);
+}
+
+.setup-default-badge {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--clr-text-muted);
+  background: var(--clr-surface-muted);
+  border: 1px solid var(--clr-border-strong);
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+}
+
+.setup-custom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+  padding: var(--sp-4);
+  background: rgba(109, 40, 217, 0.03);
+  border: 1px solid rgba(109, 40, 217, 0.10);
+  border-radius: var(--r-md);
+}
+
+.setup-custom-field {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-4);
-  position: sticky;
-  top: calc(var(--navbar-h) + var(--sp-5));
+  gap: 4px;
+}
+
+.setup-custom-hint {
+  font-size: 11px;
+  color: var(--clr-text-muted);
+}
+
+.setup-custom-total {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  color: var(--clr-text-secondary);
+  border-top: 1px solid var(--clr-border);
+  padding-top: var(--sp-2);
+}
+
+/* ─── Sidebar total ─── */
+.setup-hint-total {
+  margin: var(--sp-3) 0 0;
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--clr-border);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--clr-text-secondary);
+}
+
+/* ─── Sidebar ─── */
+.setup-sidebar {
+  width: 100%;
 }
 
 .setup-hint {

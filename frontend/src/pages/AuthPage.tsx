@@ -34,8 +34,8 @@ export default function AuthPage() {
 
   const passwordCriteria = [
     { label: "Minim 6 caractere", met: password.length >= 6 },
-    { label: "Cel putin o cifra (0–9)", met: /\d/.test(password) },
-    { label: "Cel putin un caracter special (!@#$% etc.)", met: SPECIAL_CHAR_RE.test(password) },
+    { label: "Cel puțin o cifră (0–9)", met: /\d/.test(password) },
+    { label: "Cel puțin un caracter special (!@#$% etc.)", met: SPECIAL_CHAR_RE.test(password) },
   ];
   const passwordsMatch = password.length > 0 && password === confirmPassword;
 
@@ -48,7 +48,7 @@ export default function AuthPage() {
         setLevels(res.data.levels);
         setPositions(res.data.positions);
       })
-      .catch(() => setError("Nu am putut incarca nivelurile si pozitiile."));
+      .catch(() => setError("Nu am putut încărca nivelurile și pozițiile."));
   }, [mode]);
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function AuthPage() {
         await login(email, password);
       } else {
         if (!passwordCriteria.every((c) => c.met)) {
-          setError("Parola nu indeplineste toate criteriile de securitate.");
+          setError("Parola nu îndeplinește toate criteriile de securitate.");
           return;
         }
         if (password !== confirmPassword) {
@@ -79,7 +79,7 @@ export default function AuthPage() {
           return;
         }
         if (!firstName.trim() || !lastName.trim() || !levelId || !positionId) {
-          setError("Completeaza toate campurile obligatorii.");
+          setError("Completează toate câmpurile obligatorii.");
           return;
         }
         await register({
@@ -95,7 +95,7 @@ export default function AuthPage() {
       const roles: string[] = JSON.parse(localStorage.getItem("user") || "{}").roles ?? [];
       navigate(roles.includes("ADMIN") ? "/admin" : "/", { replace: true });
     } catch (err: any) {
-      setError(err?.response?.data?.message || "A aparut o eroare. Incearca din nou.");
+      setError(err?.response?.data?.message || "A apărut o eroare. Încearcă din nou.");
     } finally {
       setLoading(false);
     }
@@ -129,14 +129,14 @@ export default function AuthPage() {
             className={`auth-tab${mode === "register" ? " auth-tab-active" : ""}`}
             onClick={() => switchMode("register")}
           >
-            Inregistrare
+            Înregistrare
           </button>
         </div>
 
         {/* Form header */}
         <div className="auth-form-header">
-          <h2>{mode === "login" ? "Bun venit inapoi" : "Creeaza un cont"}</h2>
-          <p>{mode === "login" ? "Intra in contul tau pentru a continua" : "Completeaza profilul de baza"}</p>
+          <h2>{mode === "login" ? "Bun venit înapoi" : "Creează un cont"}</h2>
+          <p>{mode === "login" ? "Intră în contul tău pentru a continua" : "Completează profilul de bază"}</p>
         </div>
 
         <form onSubmit={onSubmit} className="auth-form">
@@ -174,13 +174,13 @@ export default function AuthPage() {
                   type="button"
                   className={`password-info-btn${showPasswordPopup ? " password-info-btn-active" : ""}`}
                   onClick={() => setShowPasswordPopup((v) => !v)}
-                  title="Cerinte parola"
+                  title="Cerințe parolă"
                 >
                   i
                 </button>
                 {showPasswordPopup && (
                   <div className="password-criteria-popup">
-                    <p className="password-criteria-title">Cerinte parola</p>
+                    <p className="password-criteria-title">Cerințe parolă</p>
                     {passwordCriteria.map((c, i) => (
                       <div key={i} className={`password-criterion ${c.met ? "criterion-met" : "criterion-unmet"}`}>
                         <span className="criterion-icon">{c.met ? "✓" : "✗"}</span>
@@ -221,11 +221,11 @@ export default function AuthPage() {
           {mode === "register" && (
             <>
               <div className="form-field">
-                <label className="form-label">Confirmare parola</label>
+                <label className="form-label">Confirmare parolă</label>
                 <input
                   className="input"
                   type="password"
-                  placeholder="Repeta parola"
+                  placeholder="Repetă parola"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
@@ -243,14 +243,14 @@ export default function AuthPage() {
                 <div className="form-field">
                   <label className="form-label">Nivel</label>
                   <select className="input" value={levelId} onChange={(e) => setLevelId(Number(e.target.value))} required>
-                    <option value="">Selecteaza</option>
+                    <option value="">Selectează</option>
                     {levels.map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}
                   </select>
                 </div>
                 <div className="form-field">
-                  <label className="form-label">Pozitie ocupata</label>
+                  <label className="form-label">Poziție ocupată</label>
                   <select className="input" value={positionId} onChange={(e) => setPositionId(Number(e.target.value))} required>
-                    <option value="">Selecteaza</option>
+                    <option value="">Selectează</option>
                     {positions.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
                   </select>
                 </div>
@@ -261,7 +261,7 @@ export default function AuthPage() {
           {error && <div className="error-box">{error}</div>}
 
           <button type="submit" className="btn btn-primary auth-submit-btn" disabled={loading}>
-            {loading ? "Se proceseaza..." : mode === "login" ? "Intra in cont" : "Creeaza cont"}
+            {loading ? "Se procesează..." : mode === "login" ? "Intră în cont" : "Creează cont"}
           </button>
         </form>
       </div>

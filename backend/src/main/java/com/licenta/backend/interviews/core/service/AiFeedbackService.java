@@ -119,6 +119,7 @@ public class AiFeedbackService {
 
     private String buildHrPromptV2(String question, String answer) {
         return """
+                
                 Esti un interview coach expert. Analizeaza raspunsul candidatului la aceasta intrebare de interviu.
                 Returneaza EXCLUSIV un obiect JSON valid. Fara markdown, fara ``` si fara text suplimentar.
                 Nu copia valorile exemplu. Inlocuieste fiecare valoare cu evaluarea ta concreta.

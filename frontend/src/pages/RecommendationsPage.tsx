@@ -347,6 +347,19 @@ const RESOURCES: Resource[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────
+// Extrage temele principale ale unui interviu specific
+// ─────────────────────────────────────────────────────────────
+function extractTopics(item: RecommendationItem): string[] {
+  const combined = [item.recommendedTopics, item.recommendedProblemCategories]
+    .filter(Boolean).join(", ");
+  return combined
+    .split(/[,;]/)
+    .map((t) => t.trim())
+    .filter((t) => t && t.toLowerCase() !== "n/a" && t.length > 2)
+    .slice(0, 5);
+}
+
+// ─────────────────────────────────────────────────────────────
 // Matching: extrage resurse relevante din temele AI
 // ─────────────────────────────────────────────────────────────
 function findResources(items: RecommendationItem[]): Resource[] {
@@ -399,6 +412,18 @@ type RecommendationItem = {
   nextSteps: string | null;
 };
 
+const READY_LEVEL_LABELS: Record<string, string> = {
+  READY: "Pregătit",
+  PARTIALLY_READY: "Parțial pregătit",
+  NOT_READY: "Nepregătit",
+};
+
+const READY_LEVEL_COLORS: Record<string, string> = {
+  READY: "#16a34a",
+  PARTIALLY_READY: "#d97706",
+  NOT_READY: "#dc2626",
+};
+
 const CATEGORY_COLORS: Record<string, string> = {
   "Java": "#4f46e5",
   "Spring": "#059669",
@@ -426,22 +451,23 @@ export default function RecommendationsPage() {
   const [items, setItems] = useState<RecommendationItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [activeTab, setActiveTab] = useState<"materiale" | "interviuri">("materiale");
 
   useEffect(() => {
     api.get<RecommendationItem[]>("/api/interview/recommendations")
       .then((res) => setItems(res.data))
-      .catch(() => setError("Nu am putut incarca recomandarile."))
+      .catch(() => setError("Nu am putut încărca recomandările."))
       .finally(() => setLoading(false));
   }, []);
 
   const resources = useMemo(() => findResources(items), [items]);
 
-  if (loading) return <PageLayout><div className="rec-loading">Se incarca recomandarile...</div></PageLayout>;
+  if (loading) return <PageLayout><div className="rec-loading">Se încarcă recomandările...</div></PageLayout>;
   if (error)   return (
     <PageLayout>
       <div className="rec-error">
         <div className="error-box">{error}</div>
-        <button className="btn btn-outline" onClick={() => navigate("/")}>Inapoi acasa</button>
+        <button className="btn btn-outline" onClick={() => navigate("/")}>Înapoi acasă</button>
       </div>
     </PageLayout>
   );
@@ -452,74 +478,181 @@ export default function RecommendationsPage() {
         {/* Hero */}
         <div className="rec-hero">
           <div>
-            <h1>Recomandari personalizate</h1>
+            <h1>Recomandări personalizate</h1>
             <p>Bazate pe toate interviurile tale finalizate</p>
           </div>
           <button className="btn btn-outline rec-back-btn" onClick={() => navigate("/")}>
-            Inapoi acasa
+            Înapoi acasă
           </button>
         </div>
 
         {items.length === 0 ? (
           <div className="card rec-empty">
-            <p>Nu ai inca niciun interviu finalizat cu feedback AI.</p>
+            <p>Nu ai încă niciun interviu finalizat cu feedback AI.</p>
             <button className="btn btn-primary" onClick={() => navigate("/interview/setup")}>
-              Incepe primul interviu
+              Începe primul interviu
             </button>
           </div>
         ) : (
-          resources.length > 0 && (
-            <div className="card rec-resources-card">
-              <div className="rec-resources-header">
-                <div>
-                  <h2>Resurse de studiu recomandate</h2>
-                  <p className="rec-subtitle">
-                    Materiale selectate pe baza temelor identificate in feedback-ul tau.
-                  </p>
-                </div>
-                <span className="rec-resources-count">{resources.length} resurse</span>
-              </div>
-
-              <div className="rec-resources-table-wrap">
-                <table className="rec-resources-table">
-                  <thead>
-                    <tr>
-                      <th>Categorie</th>
-                      <th>Resursa</th>
-                      <th>Descriere</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {resources.map((r) => (
-                      <tr key={r.url}>
-                        <td>
-                          <span
-                            className="rec-cat-badge"
-                            style={{ background: `${CATEGORY_COLORS[r.category] ?? "#6b7280"}18`, color: CATEGORY_COLORS[r.category] ?? "#6b7280", borderColor: `${CATEGORY_COLORS[r.category] ?? "#6b7280"}35` }}
-                          >
-                            {r.category}
-                          </span>
-                        </td>
-                        <td className="rec-res-title">{r.title}</td>
-                        <td className="rec-res-desc">{r.description}</td>
-                        <td>
-                          <a
-                            href={r.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="rec-res-link"
-                          >
-                            Deschide -&gt;
-                          </a>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+          <>
+            {/* Tab bar */}
+            <div className="rec-tabs">
+              <button
+                className={`rec-tab ${activeTab === "materiale" ? "rec-tab-active" : ""}`}
+                onClick={() => setActiveTab("materiale")}
+              >
+                Materiale
+                {resources.length > 0 && (
+                  <span className="rec-tab-count">{resources.length}</span>
+                )}
+              </button>
+              <button
+                className={`rec-tab ${activeTab === "interviuri" ? "rec-tab-active" : ""}`}
+                onClick={() => setActiveTab("interviuri")}
+              >
+                Interviuri de refăcut
+                <span className="rec-tab-count">{items.length}</span>
+              </button>
             </div>
-          )
+
+            {/* Tab: Materiale */}
+            {activeTab === "materiale" && (
+              resources.length > 0 ? (
+                <div className="card rec-resources-card">
+                  <div className="rec-resources-header">
+                    <div>
+                      <h2>Resurse de studiu recomandate</h2>
+                      <p className="rec-subtitle">
+                        Materiale selectate pe baza temelor identificate în feedback-ul tău.
+                      </p>
+                    </div>
+                    <span className="rec-resources-count">{resources.length} resurse</span>
+                  </div>
+
+                  <div className="rec-resources-table-wrap">
+                    <table className="rec-resources-table">
+                      <thead>
+                        <tr>
+                          <th>Categorie</th>
+                          <th>Resursă</th>
+                          <th>Descriere</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {resources.map((r) => (
+                          <tr key={r.url}>
+                            <td>
+                              <span
+                                className="rec-cat-badge"
+                                style={{ background: `${CATEGORY_COLORS[r.category] ?? "#6b7280"}18`, color: CATEGORY_COLORS[r.category] ?? "#6b7280", borderColor: `${CATEGORY_COLORS[r.category] ?? "#6b7280"}35` }}
+                              >
+                                {r.category}
+                              </span>
+                            </td>
+                            <td className="rec-res-title">{r.title}</td>
+                            <td className="rec-res-desc">{r.description}</td>
+                            <td>
+                              <a
+                                href={r.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="rec-res-link"
+                              >
+                                Deschide -&gt;
+                              </a>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : (
+                <div className="card rec-empty">
+                  <p>Nu s-au identificat materiale relevante din feedback-ul tau.</p>
+                </div>
+              )
+            )}
+
+            {/* Tab: Interviuri de refacut */}
+            {activeTab === "interviuri" && (
+              <div className="rec-retake-list">
+                {items.map((item) => {
+                  const topics = extractTopics(item);
+                  const dateStr = new Date(item.createdAt).toLocaleDateString("ro-RO", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  });
+                  const rl = item.readyLevel ?? "";
+                  return (
+                    <div key={item.interviewId} className="card rec-retake-card">
+                      <div className="rec-retake-header">
+                        <div className="rec-retake-meta">
+                          <span className="rec-retake-pos">{item.position}</span>
+                          <span className="rec-retake-sep">·</span>
+                          <span className="rec-retake-level">{item.level}</span>
+                          <span className="rec-retake-date">{dateStr}</span>
+                        </div>
+                        <div className="rec-retake-badges">
+                          {item.score != null && (
+                            <span className="rec-retake-score">{item.score}%</span>
+                          )}
+                          {rl && (
+                            <span
+                              className="rec-retake-rl"
+                              style={{
+                                background: `${READY_LEVEL_COLORS[rl] ?? "#6b7280"}18`,
+                                color: READY_LEVEL_COLORS[rl] ?? "#6b7280",
+                                borderColor: `${READY_LEVEL_COLORS[rl] ?? "#6b7280"}40`,
+                              }}
+                            >
+                              {READY_LEVEL_LABELS[rl] ?? rl}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {topics.length > 0 && (
+                        <div className="rec-retake-callout">
+                          <span>
+                            Dacă ai parcurs materialele despre{" "}
+                            <strong>{topics.slice(0, 3).join(", ")}</strong>
+                            {topics.length > 3 ? " și altele" : ""},
+                            ești pregătit să redai acest interviu!
+                          </span>
+                        </div>
+                      )}
+
+                      {topics.length > 0 && (
+                        <div className="rec-topic-chips">
+                          {topics.map((t) => (
+                            <span key={t} className="rec-topic-chip">{t}</span>
+                          ))}
+                        </div>
+                      )}
+
+                      <div className="rec-retake-actions">
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => navigate("/interview/setup")}
+                        >
+                          Reia interviul →
+                        </button>
+                        <button
+                          className="btn btn-outline"
+                          onClick={() => navigate(`/interview/${item.interviewId}/review`)}
+                        >
+                          Revezi recenzia
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </>
         )}
       </div>
     </PageLayout>

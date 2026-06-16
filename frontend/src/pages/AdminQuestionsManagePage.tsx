@@ -152,29 +152,28 @@ export default function AdminQuestionsManagePage() {
       {/* ── Sidebar ── */}
       <aside className="adm-sidebar">
         <div className="adm-sidebar-logo">
-          <span className="adm-logo-icon">⚡</span>
           <span className="adm-logo-text">Admin Panel</span>
         </div>
         <nav className="adm-nav">
           <button className="adm-nav-item" onClick={() => navigate("/admin")}>
-            <span className="adm-nav-icon">📊</span><span>Dashboard</span>
+            <span>Dashboard</span>
           </button>
           <button className="adm-nav-item" onClick={() => navigate("/admin/users")}>
-            <span className="adm-nav-icon">👥</span><span>Utilizatori</span>
+            <span>Utilizatori</span>
           </button>
           <button className="adm-nav-item adm-nav-item-active">
-            <span className="adm-nav-icon">📋</span><span>Întrebări</span>
+            <span>Întrebări</span>
           </button>
           <button className="adm-nav-item" onClick={() => navigate("/admin/questions")}>
-            <span className="adm-nav-icon">➕</span><span>Adaugă întrebare</span>
+            <span>Adaugă întrebare</span>
           </button>
         </nav>
         <div className="adm-sidebar-footer">
           <button className="adm-nav-item" onClick={() => navigate("/")}>
-            <span className="adm-nav-icon">🏠</span><span>Înapoi la app</span>
+            <span>Înapoi la app</span>
           </button>
           <button className="adm-nav-item adm-logout-btn" onClick={handleLogout}>
-            <span className="adm-nav-icon">🚪</span><span>Deconectare</span>
+            <span>Deconectare</span>
           </button>
         </div>
       </aside>
@@ -202,7 +201,6 @@ export default function AdminQuestionsManagePage() {
           {/* ── Filters ── */}
           <div className="card aqm-filters">
             <div className="aqm-search-wrap">
-              <span className="aqm-search-icon">🔍</span>
               <input
                 className="aqm-search"
                 placeholder="Caută în textul întrebării..."
@@ -386,7 +384,7 @@ export default function AdminQuestionsManagePage() {
                                 onClick={() => setConfirmId(q.id)}
                                 title="Șterge întrebarea"
                               >
-                                🗑
+                                ×
                               </button>
                             )}
                           </div>

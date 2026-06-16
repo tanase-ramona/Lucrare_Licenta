@@ -119,10 +119,14 @@ public class InterviewGenerationService {
         interview.setStatus("GENERATED");
         interview = interviewRepo.save(interview);
 
-        // 3) Selectează întrebări strict pe filtre, cu număr fix
-        final int HR_COUNT = 2;
-        final int TECH_COUNT = 4;
-        final int PROBLEM_COUNT = 2;
+        // 3) Selectează întrebări pe filtre, cu număr personalizabil (default: 2 HR, 4 TECH, 2 PROBLEM)
+        final int HR_COUNT      = req.hrCount     != null ? clamp(req.hrCount, 0, 10)     : 2;
+        final int TECH_COUNT    = req.techCount   != null ? clamp(req.techCount, 0, 10)   : 4;
+        final int PROBLEM_COUNT = req.codingCount != null ? clamp(req.codingCount, 0, 10) : 2;
+
+        if (HR_COUNT + TECH_COUNT + PROBLEM_COUNT == 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Interviul trebuie să aibă cel puțin o întrebare.");
+        }
 
         Long hrId = categoryRepo.findByName("HR")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Category HR missing")).getId();
@@ -161,6 +165,10 @@ public class InterviewGenerationService {
         }
 
         return interview;
+    }
+
+    private int clamp(int value, int min, int max) {
+        return Math.max(min, Math.min(max, value));
     }
 
     private List<Question> pickRandom(
@@ -650,6 +658,10 @@ public class InterviewGenerationService {
             item.createdAt = interview.getCreatedAt();
             item.level = interview.getRequest().getLevel().getName();
             item.position = interview.getRequest().getPosition().getName();
+            item.levelId = interview.getRequest().getLevel().getId();
+            item.positionId = interview.getRequest().getPosition().getId();
+            item.languageIds = interview.getRequest().getLanguages().stream()
+                    .map(l -> l.getId()).toList();
 
             var summary = interviewFeedbackSummaryRepo.findByInterviewId(interview.getId()).orElse(null);
             item.readyLevel = summary != null ? summary.getReadyLevel() : null;

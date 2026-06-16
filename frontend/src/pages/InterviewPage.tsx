@@ -233,6 +233,7 @@ export default function InterviewPage() {
 
   const [interview, setInterview] = useState<InterviewResponse | null>(null);
   const [loading, setLoading] = useState(true);
+  const [finishing, setFinishing] = useState(false);
   const [error, setError] = useState("");
 
   const [textAnswers, setTextAnswers] = useState<Record<number, string>>({});
@@ -336,7 +337,7 @@ export default function InterviewPage() {
         const answer = textAnswers[q.interviewQuestionId]?.trim() ?? "";
         const starter = q.starterCode?.trim() ?? "";
         if (!answer || (starter && answer === starter))
-          return `Completeaza codul pentru intrebarea ${i + 1}.`;
+          return `Completează codul pentru întrebarea ${i + 1}.`;
       } else {
         if (!textAnswers[q.interviewQuestionId]?.trim())
           return `Nu ai completat răspunsul pentru întrebarea ${i + 1}.`;
@@ -363,6 +364,7 @@ export default function InterviewPage() {
     const validationError = validateAnswers();
     if (validationError) { setError(validationError); return; }
 
+    setFinishing(true);
     try {
       const answersPayload = {
         answers: interview.questions.map((q) => {
@@ -382,6 +384,7 @@ export default function InterviewPage() {
       const finishRes = await api.post(`/api/interview/${interview.id}/finish`);
       navigate(`/interview/${interview.id}/result`, { state: finishRes.data });
     } catch (err: any) {
+      setFinishing(false);
       setError(err?.response?.data?.message || "Nu am putut finaliza interviul.");
     }
   }
@@ -464,10 +467,10 @@ export default function InterviewPage() {
                             className="code-editor-reset"
                             onClick={() => handleResetStarterCode(q)}
                           >
-                            Reseteaza scheletul
+                            Resetează scheletul
                           </button>
                         )}
-                        <span className="code-editor-hint">Completeaza functia</span>
+                        <span className="code-editor-hint">Completează funcția</span>
                       </div>
                     </div>
                     <Editor
@@ -527,11 +530,21 @@ export default function InterviewPage() {
 
         <div className="interview-actions">
           <button className="btn btn-outline" onClick={() => navigate("/")}>Abandonează</button>
-          <button className="btn btn-primary" onClick={handleFinish}>
+          <button className="btn btn-primary" onClick={handleFinish} disabled={finishing}>
             Finalizează interviul →
           </button>
         </div>
       </div>
+
+      {finishing && (
+        <div className="interview-finish-overlay">
+          <div className="interview-finish-modal">
+            <div className="interview-finish-spinner" />
+            <p className="interview-finish-title">Se generează feedback-ul...</p>
+            <p className="interview-finish-sub">Acest proces poate dura câteva secunde. Te rugăm să aștepți.</p>
+          </div>
+        </div>
+      )}
     </PageLayout>
   );
 }

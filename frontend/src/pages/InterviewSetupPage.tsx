@@ -23,6 +23,12 @@ export default function InterviewSetupPage() {
   const [positionId, setPositionId] = useState<number | "">("");
   const [selectedLanguageIds, setSelectedLanguageIds] = useState<number[]>([]);
 
+  // Custom structure
+  const [customizing, setCustomizing] = useState(false);
+  const [hrCount, setHrCount] = useState(2);
+  const [techCount, setTechCount] = useState(4);
+  const [codingCount, setCodingCount] = useState(2);
+
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -49,10 +55,18 @@ export default function InterviewSetupPage() {
     );
   }
 
+  function clamp(val: number, min: number, max: number) {
+    return Math.max(min, Math.min(max, val));
+  }
+
   async function handleGenerate() {
     setError("");
     if (!levelId || !positionId || selectedLanguageIds.length === 0) {
       setError("Selectează nivelul, poziția și cel puțin un limbaj.");
+      return;
+    }
+    if (customizing && hrCount + techCount + codingCount === 0) {
+      setError("Structura personalizată trebuie să aibă cel puțin o întrebare.");
       return;
     }
     try {
@@ -61,6 +75,7 @@ export default function InterviewSetupPage() {
         levelId,
         positionId,
         languageIds: selectedLanguageIds,
+        ...(customizing && { hrCount, techCount, codingCount }),
       });
       navigate(`/interview/${res.data.interviewId}`);
     } catch (err: any) {
@@ -69,6 +84,10 @@ export default function InterviewSetupPage() {
       setSubmitting(false);
     }
   }
+
+  const totalQuestions = customizing
+    ? hrCount + techCount + codingCount
+    : 2 + 4 + 2;
 
   if (loading) {
     return (
@@ -145,6 +164,62 @@ export default function InterviewSetupPage() {
               </div>
             </div>
 
+            {/* Customizable structure toggle */}
+            <div className="setup-field">
+              <button
+                type="button"
+                className="setup-customize-toggle"
+                onClick={() => setCustomizing((v) => !v)}
+              >
+                <span>{customizing ? "▼" : "▶"}</span>
+                Personalizează structura interviului
+                {!customizing && (
+                  <span className="setup-default-badge">implicit: 2 HR · 4 tehnice · 2 codare</span>
+                )}
+              </button>
+
+              {customizing && (
+                <div className="setup-custom-grid">
+                  <div className="setup-custom-field">
+                    <label className="setup-label">Întrebări HR</label>
+                    <input
+                      type="number"
+                      className="input"
+                      min={0} max={10}
+                      value={hrCount}
+                      onChange={(e) => setHrCount(clamp(Number(e.target.value), 0, 10))}
+                    />
+                    <span className="setup-custom-hint">răspuns liber</span>
+                  </div>
+                  <div className="setup-custom-field">
+                    <label className="setup-label">Întrebări tehnice</label>
+                    <input
+                      type="number"
+                      className="input"
+                      min={0} max={10}
+                      value={techCount}
+                      onChange={(e) => setTechCount(clamp(Number(e.target.value), 0, 10))}
+                    />
+                    <span className="setup-custom-hint">grilă</span>
+                  </div>
+                  <div className="setup-custom-field">
+                    <label className="setup-label">Probleme de codare</label>
+                    <input
+                      type="number"
+                      className="input"
+                      min={0} max={10}
+                      value={codingCount}
+                      onChange={(e) => setCodingCount(clamp(Number(e.target.value), 0, 10))}
+                    />
+                    <span className="setup-custom-hint">cod</span>
+                  </div>
+                  <div className="setup-custom-total">
+                    Total: <strong>{totalQuestions} întrebări</strong>
+                  </div>
+                </div>
+              )}
+            </div>
+
             <div className="setup-actions">
               <button className="btn btn-outline" onClick={() => navigate("/")}>
                 Înapoi
@@ -159,35 +234,6 @@ export default function InterviewSetupPage() {
             </div>
           </div>
 
-          {/* Sidebar info */}
-          <div className="setup-sidebar">
-            <div className="card setup-hint">
-              <h3>Ce vei primi</h3>
-              <ul className="hint-list">
-                <li>
-                  <span className="hint-icon">💬</span>
-                  <div>
-                    <strong>2 întrebări HR</strong>
-                    <p>Răspuns liber — comportament, motivație</p>
-                  </div>
-                </li>
-                <li>
-                  <span className="hint-icon">🧩</span>
-                  <div>
-                    <strong>4 întrebări tehnice</strong>
-                    <p>Grilă cu o singură variantă corectă</p>
-                  </div>
-                </li>
-                <li>
-                  <span className="hint-icon">💻</span>
-                  <div>
-                    <strong>2 probleme de codare</strong>
-                    <p>Răspuns liber cu cod</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
         </div>
       </div>
     </PageLayout>

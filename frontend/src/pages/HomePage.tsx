@@ -14,6 +14,9 @@ type InterviewHistoryItem = {
   level: string;
   position: string;
   readyLevel: string | null;
+  levelId: number | null;
+  positionId: number | null;
+  languageIds: number[] | null;
 };
 
 export default function HomePage() {
@@ -60,6 +63,8 @@ export default function HomePage() {
     loadHistory();
   }, []);
 
+  const [retrying, setRetrying] = useState<number | null>(null);
+
   async function handleDelete(interviewId: number) {
     if (!window.confirm("Ești sigur că vrei să ștergi acest interviu?")) return;
     try {
@@ -67,6 +72,26 @@ export default function HomePage() {
       setInterviews((prev) => prev.filter((i) => i.interviewId !== interviewId));
     } catch {
       alert("Nu s-a putut șterge interviul. Încearcă din nou.");
+    }
+  }
+
+  async function handleRetry(item: InterviewHistoryItem) {
+    if (!item.levelId || !item.positionId || !item.languageIds?.length) {
+      navigate("/interview/setup");
+      return;
+    }
+    try {
+      setRetrying(item.interviewId);
+      const res = await api.post<{ interviewId: number }>("/api/interview/generate", {
+        levelId: item.levelId,
+        positionId: item.positionId,
+        languageIds: item.languageIds,
+      });
+      navigate(`/interview/${res.data.interviewId}`);
+    } catch {
+      alert("Nu s-a putut genera interviul. Încearcă din nou.");
+    } finally {
+      setRetrying(null);
     }
   }
 
@@ -103,7 +128,7 @@ export default function HomePage() {
               style={{ background: "rgba(255,255,255,0.12)", borderColor: "rgba(255,255,255,0.25)", color: "white" }}
               onClick={() => navigate("/recommendations")}
             >
-              📚 Recomandări
+              Recomandări
             </button>
             <button
               className="home-hero-btn"
@@ -232,8 +257,8 @@ export default function HomePage() {
                       <td>{i.position}</td>
                       <td>{i.level}</td>
                       <td>
-                        <span className={i.status === "COMPLETED" ? "badge badge-success" : "badge badge-gray"}>
-                          {i.status === "COMPLETED" ? "Finalizat" : i.status}
+                        <span className={i.status === "COMPLETED" ? "badge badge-success" : "badge badge-warning"}>
+                          {i.status === "COMPLETED" ? "Finalizat" : "Nefinalizat"}
                         </span>
                       </td>
                       <td>{i.score !== null ? `${i.score}%` : "—"}</td>
@@ -244,18 +269,37 @@ export default function HomePage() {
                       </td>
                       <td>
                         <div className="table-actions">
-                          <button
-                            className="btn btn-outline table-btn"
-                            onClick={() => navigate(`/interview/${i.interviewId}/review`)}
-                          >
-                            Detalii
-                          </button>
+                          {i.status === "COMPLETED" ? (
+                            <>
+                              <button
+                                className="btn btn-outline table-btn"
+                                onClick={() => navigate(`/interview/${i.interviewId}/review`)}
+                              >
+                                Detalii
+                              </button>
+                              <button
+                                className="btn btn-outline table-btn"
+                                onClick={() => handleRetry(i)}
+                                disabled={retrying === i.interviewId}
+                                title="Pornește un interviu nou cu aceleași setări"
+                              >
+                                {retrying === i.interviewId ? "Se generează..." : "Reîncearcă"}
+                              </button>
+                            </>
+                          ) : (
+                            <button
+                              className="btn btn-primary table-btn"
+                              onClick={() => navigate(`/interview/${i.interviewId}`)}
+                            >
+                              Continuă
+                            </button>
+                          )}
                           <button
                             className="btn btn-delete table-btn"
                             onClick={() => handleDelete(i.interviewId)}
                             title="Șterge interviul"
                           >
-                            🗑
+                            ×
                           </button>
                         </div>
                       </td>

@@ -39,7 +39,7 @@ public class AdminInitializer implements CommandLineRunner {
 
         User admin = new User();
         admin.setEmail(adminEmail);
-        admin.setPassword(passwordEncoder.encode("admin123"));
+        admin.setPassword(passwordEncoder.encode("Admin@2024"));
         admin.setRoles(Set.of(adminRole));
         userRepo.save(admin);
 

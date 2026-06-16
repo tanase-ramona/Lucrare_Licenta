@@ -6,50 +6,50 @@ import "./LoginPage.css";
 const FEATURES = [
   {
     id: "interviuri",
-    title: "Interviuri adaptate nivelului si rolului tau",
+    title: "Interviuri adaptate nivelului și rolului tău",
     description:
-      "Platforma genereaza automat seturi de intrebari personalizate in functie de profilul tau profesional, asigurandu-se ca fiecare sesiune este relevanta si utila.",
+      "Platforma generează automat seturi de întrebări personalizate în funcție de profilul tău profesional, asigurându-se că fiecare sesiune este relevantă și utilă.",
     bullets: [
       "Niveluri disponibile: Junior, Mid-level, Senior",
-      "Pozitii acoperite: Frontend, Backend, Full Stack, DevOps, Data Science si altele",
-      "Fiecare sesiune este unica — intrebarile nu se repeta",
-      "Dificultate ajustata in functie de nivelul ales",
+      "Poziții acoperite: Frontend, Backend, Full Stack, DevOps, Data Science și altele",
+      "Fiecare sesiune este unică — întrebările nu se repetă",
+      "Dificultate ajustată în funcție de nivelul ales",
     ],
   },
   {
     id: "feedback",
-    title: "Feedback AI pentru fiecare raspuns",
+    title: "Feedback AI pentru fiecare răspuns",
     description:
-      "Dupa fiecare raspuns, modelul de AI analizeaza in timp real calitatea si completitudinea acestuia, oferind o perspectiva clara asupra punctelor forte si slabe.",
+      "După fiecare răspuns, modelul de AI analizează în timp real calitatea și completitudinea acestuia, oferind o perspectivă clară asupra punctelor forte și slabe.",
     bullets: [
-      "Puncte forte identificate automat in raspunsul tau",
-      "Ce informatii lipsesc sau ar imbunatati raspunsul",
+      "Puncte forte identificate automat în răspunsul tău",
+      "Ce informații lipsesc sau ar îmbunătăți răspunsul",
       "Sugestii concrete de reformulare sau completare",
-      "Scor per intrebare si scor global pe sesiune",
+      "Scor per întrebare și scor global pe sesiune",
     ],
   },
   {
     id: "limbaje",
-    title: "Diversitate de intrebari si limbaje",
+    title: "Diversitate de întrebări și limbaje",
     description:
-      "Acoperim o gama larga de domenii tehnice, teorice si practice, de la algoritmi clasici pana la tehnologii moderne folosite in industrie.",
+      "Acoperim o gamă largă de domenii tehnice, teoretice și practice, de la algoritmi clasici până la tehnologii moderne folosite în industrie.",
     bullets: [
-      "Limbaje: Java, Python, JavaScript, TypeScript, C++, SQL si altele",
-      "Domenii: algoritmi si structuri de date, baze de date, sisteme de operare",
-      "Framework-uri si tehnologii moderne: React, Spring Boot, Node.js",
-      "Intrebari teoretice si practice cu exemple de cod real",
+      "Limbaje: Java, Python, JavaScript, TypeScript, C++, SQL și altele",
+      "Domenii: algoritmi și structuri de date, baze de date, sisteme de operare",
+      "Framework-uri și tehnologii moderne: React, Spring Boot, Node.js",
+      "Întrebări teoretice și practice cu exemple de cod real",
     ],
   },
   {
     id: "statistici",
-    title: "Statistici si urmarirea progresului",
+    title: "Statistici și urmărirea progresului",
     description:
-      "Monitorizeaza-ti evolutia in timp si identifica rapid punctele slabe, astfel incat sa iti concentrezi eforturile acolo unde conteaza cel mai mult.",
+      "Monitorizează-ți evoluția în timp și identifică rapid punctele slabe, astfel încât să îți concentrezi eforturile acolo unde contează cel mai mult.",
     bullets: [
-      "Grafice cu evolutia scorurilor pe sesiuni",
-      "Analiza per domeniu: unde excelezi si unde mai ai de lucru",
-      "Comparatie intre sesiunile anterioare",
-      "Istoric complet al tuturor interviurilor si raspunsurilor",
+      "Grafice cu evoluția scorurilor pe sesiuni",
+      "Analiză per domeniu: unde excelezi și unde mai ai de lucru",
+      "Comparație între sesiunile anterioare",
+      "Istoric complet al tuturor interviurilor și răspunsurilor",
     ],
   },
 ];
@@ -76,10 +76,10 @@ export default function LoginPage() {
         </nav>
 
         <section className="landing-hero">
-          <h1>Pregatire inteligenta pentru interviuri care conteaza</h1>
+          <h1>Pregătire inteligentă pentru interviuri care contează</h1>
           <p>
-            Exerseaza cu intrebari reale, primeste feedback instant si
-            urmareste-ti progresul pana cand esti cu adevarat pregatit.
+            Exersează cu întrebări reale, primește feedback instant și
+            urmărește-ți progresul până când ești cu adevărat pregătit.
           </p>
         </section>
 

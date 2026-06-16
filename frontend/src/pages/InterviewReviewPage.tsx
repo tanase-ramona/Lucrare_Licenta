@@ -148,7 +148,7 @@ function HrFeedbackPanel({ fb }: { fb: HrFeedback }) {
   return (
     <div className="fb-panel">
       <div className="fb-panel-header">
-        <span className="fb-panel-title">Feedback AI — Răspuns liber {fb.good ? "✅" : "⚠️"}</span>
+        <span className="fb-panel-title">Feedback AI — Răspuns liber</span>
         <span className="fb-score">{fb.score}/10</span>
       </div>
 
@@ -161,13 +161,13 @@ function HrFeedbackPanel({ fb }: { fb: HrFeedback }) {
         <FeedbackRow label="Formulări problematice" value={fb.problematicMentions} variant="bad" />
       </div>
 
-      <FeedbackRow label="💡 Sfaturi de îmbunătățire" value={fb.improvementTips} />
-      <FeedbackRow label="🎯 Structura unui răspuns ideal" value={fb.idealAnswerStructure} />
-      <FeedbackRow label="🗣 Ton și claritate" value={fb.toneFeedback} />
+      <FeedbackRow label="Sfaturi de îmbunătățire" value={fb.improvementTips} />
+      <FeedbackRow label="Structura unui răspuns ideal" value={fb.idealAnswerStructure} />
+      <FeedbackRow label="Ton și claritate" value={fb.toneFeedback} />
 
       {fb.tailoredExampleAnswer && (
         <div className="fb-row fb-row-example">
-          <span className="fb-row-label">📝 Exemplu de răspuns adaptat</span>
+          <span className="fb-row-label">Exemplu de răspuns adaptat</span>
           <p className="fb-row-value fb-example-text">{fb.tailoredExampleAnswer}</p>
         </div>
       )}
@@ -181,7 +181,7 @@ function CodingFeedbackPanel({ fb }: { fb: CodingFeedback }) {
   return (
     <div className="fb-panel">
       <div className="fb-panel-header">
-        <span className="fb-panel-title">Feedback AI — Coding {fb.good ? "✅" : "⚠️"}</span>
+        <span className="fb-panel-title">Feedback AI — Coding</span>
         <span className="fb-score">{fb.score}/10</span>
       </div>
 
@@ -208,19 +208,19 @@ function CodingFeedbackPanel({ fb }: { fb: CodingFeedback }) {
         <FeedbackRow label="Practici proaste" value={fb.badPracticesUsed} variant="bad" />
       </div>
 
-      <FeedbackRow label="🧪 Exemple testate" value={fb.testedExamples} />
-      <FeedbackRow label="💡 Sfaturi de îmbunătățire" value={fb.improvementTips} />
+      <FeedbackRow label="Exemple testate" value={fb.testedExamples} />
+      <FeedbackRow label="Sfaturi de îmbunătățire" value={fb.improvementTips} />
 
       {fb.correctedCode && fb.correctedCode !== "N/A" && (
         <div className="fb-row fb-row-code-section">
-          <span className="fb-row-label">🔧 Codul tău corectat</span>
+          <span className="fb-row-label">Codul tău corectat</span>
           <pre className="fb-code-block"><code>{fb.correctedCode}</code></pre>
         </div>
       )}
 
       {fb.modelSolution && (
         <div className="fb-row fb-row-code-section">
-          <span className="fb-row-label">✨ Soluție model</span>
+          <span className="fb-row-label">Soluție model</span>
           <pre className="fb-code-block"><code>{fb.modelSolution}</code></pre>
           {fb.explanationOfSolution && (
             <p className="fb-explanation">{fb.explanationOfSolution}</p>
@@ -244,7 +244,7 @@ function AiFeedbackSection({ q }: { q: QuestionReviewItem }) {
   return (
     <div className="fb-panel">
       <div className="fb-panel-header">
-        <span className="fb-panel-title">Feedback AI {q.aiGood ? "✅" : "⚠️"}</span>
+        <span className="fb-panel-title">Feedback AI</span>
         <span className="fb-score">{q.aiScore}/10</span>
       </div>
       <div className="fb-grid-2">
@@ -263,13 +263,13 @@ function AiFeedbackSection({ q }: { q: QuestionReviewItem }) {
       </div>
       {q.aiImprovementTips && (
         <div className="fb-row">
-          <span className="fb-row-label">💡 Îmbunătățiri</span>
+          <span className="fb-row-label">Îmbunătățiri</span>
           <p className="fb-row-value">{q.aiImprovementTips}</p>
         </div>
       )}
       {q.aiSuggestedAnswer && (
         <div className="fb-row">
-          <span className="fb-row-label">📝 Răspuns sugerat</span>
+          <span className="fb-row-label">Răspuns sugerat</span>
           <p className="fb-row-value">{q.aiSuggestedAnswer}</p>
         </div>
       )}
@@ -329,13 +329,13 @@ function FeedbackSummaryCard({ summary, score }: { summary: FeedbackSummary; sco
         )}
         {summary.weakPoints && (
           <div className="overview-section overview-bad">
-            <span className="overview-label">De imbunatatit</span>
+            <span className="overview-label">De îmbunătățit</span>
             <FeedbackText value={summary.weakPoints} />
           </div>
         )}
         {summary.nextSteps && (
           <div className="overview-section overview-next">
-            <span className="overview-label">Pasi urmatori</span>
+            <span className="overview-label">Pași următori</span>
             <FeedbackText value={summary.nextSteps} />
           </div>
         )}
@@ -465,9 +465,9 @@ export default function InterviewReviewPage() {
                   </div>
                 ) : (
                   <>
-                    <div className="review-section-label">Raspunsul tau</div>
+                    <div className="review-section-label">Răspunsul tău</div>
                     <div className={`review-answer-box ${q.answerType === "CODE" ? "review-answer-code" : ""}`}>
-                      {q.answerText?.trim() || "Niciun raspuns salvat pentru aceasta intrebare."}
+                      {q.answerText?.trim() || "Niciun răspuns salvat pentru această întrebare."}
                     </div>
                     <AiFeedbackSection q={q} />
                   </>
