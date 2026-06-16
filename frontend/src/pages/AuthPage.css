@@ -13,7 +13,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('../assets/login-bg.png');
+  background-image: url('../assets/images/login-bg.png');
   background-size: cover;
   background-position: center;
   filter: grayscale(1) brightness(0.38);
