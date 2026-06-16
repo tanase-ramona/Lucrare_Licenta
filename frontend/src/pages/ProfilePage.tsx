@@ -185,37 +185,28 @@ export default function ProfilePage() {
             <div className="card cardPad"><p>Se încarcă profilul...</p></div>
           ) : (
             <>
-              {/* ── Rândul 1: Date personale + Profil profesional ── */}
-              <div className="grid">
-                <div className="card cardPad">
-                  <h3 className="sectionTitle">Date personale</h3>
-                  <p className="sectionSubtitle">Poți modifica numele și prenumele oricând.</p>
-                  <div className="profileFormGrid">
-                    <div className="field">
-                      <label className="label">Nume</label>
-                      <input className="input" value={lastName}  onChange={e => setLastName(e.target.value)} />
-                    </div>
-                    <div className="field">
-                      <label className="label">Prenume</label>
-                      <input className="input" value={firstName} onChange={e => setFirstName(e.target.value)} />
-                    </div>
+              {/* ── Rândul 1: Date personale (unified) ── */}
+              <div className="card cardPad profile-main-card">
+                <h3 className="sectionTitle">Date personale</h3>
+                <p className="sectionSubtitle">Poți modifica numele, prenumele și profilul profesional oricând.</p>
+
+                <div className="profileFormGrid">
+                  <div className="field">
+                    <label className="label">Nume</label>
+                    <input className="input" value={lastName} onChange={e => setLastName(e.target.value)} />
                   </div>
                   <div className="field">
-                    <label className="label">Email</label>
-                    <input className="input" value={email} disabled />
-                  </div>
-                  {profileError   && <div className="errorBox">{profileError}</div>}
-                  {profileSuccess && <div className="successBox">{profileSuccess}</div>}
-                  <div className="rowActions">
-                    <button className="btnPrimary" onClick={onSaveProfile} disabled={saving}>
-                      {saving ? "Se salvează..." : "Salvează modificările"}
-                    </button>
+                    <label className="label">Prenume</label>
+                    <input className="input" value={firstName} onChange={e => setFirstName(e.target.value)} />
                   </div>
                 </div>
 
-                <div className="card cardPad">
-                  <h3 className="sectionTitle">Profil profesional</h3>
-                  <p className="sectionSubtitle">Nivelul și poziția influențează recomandările AI.</p>
+                <div className="field">
+                  <label className="label">Email</label>
+                  <input className="input" value={email} disabled />
+                </div>
+
+                <div className="profileFormGrid">
                   <div className="field">
                     <label className="label">Nivel</label>
                     <select className="input" value={levelId} onChange={e => setLevelId(Number(e.target.value))}>
@@ -230,6 +221,14 @@ export default function ProfilePage() {
                       {positions.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
                     </select>
                   </div>
+                </div>
+
+                {profileError   && <div className="errorBox">{profileError}</div>}
+                {profileSuccess && <div className="successBox">{profileSuccess}</div>}
+                <div className="rowActions">
+                  <button className="btnPrimary" onClick={onSaveProfile} disabled={saving}>
+                    {saving ? "Se salvează..." : "Salvează modificările"}
+                  </button>
                 </div>
               </div>
 
