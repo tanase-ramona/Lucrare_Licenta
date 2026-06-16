@@ -1,0 +1,213 @@
+.rec-container {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+/* Hero */
+.rec-hero {
+  background: var(--gradient-hero);
+  border-radius: var(--r-2xl);
+  padding: var(--sp-8) var(--sp-10);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(12, 27, 61, 0.30);
+}
+
+.rec-hero::before {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(14, 165, 233, 0.10);
+  top: -100px;
+  right: -60px;
+  pointer-events: none;
+}
+
+.rec-hero h1 {
+  margin: 0 0 var(--sp-1);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.rec-hero p {
+  margin: 0;
+  color: rgba(255,255,255,0.75);
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.rec-back-btn {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.25);
+  color: white;
+}
+
+.rec-back-btn:hover {
+  background: rgba(255,255,255,0.20);
+}
+
+.rec-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--clr-text-muted);
+  line-height: 1.55;
+}
+
+.rec-empty {
+  padding: var(--sp-10);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  color: var(--clr-text-secondary);
+}
+
+.rec-loading,
+.rec-error {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  color: var(--clr-text-secondary);
+  font-size: 15px;
+  padding: var(--sp-4);
+}
+
+/* ─── Resources card ─── */
+.rec-resources-card {
+  padding: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.rec-resources-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-4);
+}
+
+.rec-resources-header h2 {
+  margin: 0 0 var(--sp-1);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--clr-text);
+}
+
+.rec-resources-count {
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--clr-primary-light);
+  color: var(--clr-primary);
+  border: 1px solid rgba(79,70,229,0.2);
+  border-radius: var(--r-pill);
+  padding: 3px 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.rec-resources-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--clr-border);
+}
+
+.rec-resources-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.rec-resources-table thead tr {
+  background: var(--clr-surface-muted);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.rec-resources-table th {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--clr-text-muted);
+}
+
+.rec-resources-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--clr-border);
+  vertical-align: middle;
+}
+
+.rec-resources-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.rec-resources-table tbody tr:hover {
+  background: var(--clr-surface-muted);
+}
+
+.rec-cat-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: var(--r-pill);
+  border: 1px solid;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+
+.rec-res-title {
+  font-weight: 600;
+  color: var(--clr-text);
+  min-width: 200px;
+}
+
+.rec-res-desc {
+  color: var(--clr-text-secondary);
+  font-size: 13px;
+  min-width: 240px;
+}
+
+.rec-res-link {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: var(--r-md);
+  background: var(--clr-primary);
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--t), transform var(--t);
+}
+
+.rec-res-link:hover {
+  background: var(--clr-primary-dark, #3730a3);
+  transform: translateY(-1px);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 640px) {
+  .rec-hero { flex-direction: column; align-items: flex-start; padding: var(--sp-6); }
+}

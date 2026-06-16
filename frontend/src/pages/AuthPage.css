@@ -1,0 +1,265 @@
+/* ─── Auth page shell ─── */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 24px;
+}
+
+.auth-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/login-bg.png');
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(1) brightness(0.38);
+  z-index: 0;
+}
+
+.auth-page::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    150deg,
+    rgba(76, 29, 149, 0.62) 0%,
+    rgba(109, 40, 217, 0.45) 45%,
+    rgba(8, 70, 130, 0.28) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+.auth-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Back link ─── */
+.auth-back {
+  position: absolute;
+  top: 24px;
+  left: 32px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 160ms;
+}
+
+.auth-back:hover {
+  color: white;
+}
+
+/* ─── Auth card ─── */
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(255,255,255,0.97);
+  border-radius: 20px;
+  padding: 0 0 32px;
+  box-shadow:
+    0 24px 64px rgba(0,0,0,0.28),
+    0 4px 16px rgba(109,40,217,0.14);
+  border: 1px solid rgba(255,255,255,0.70);
+  animation: fadeSlideUp 0.4s both;
+  overflow: hidden;
+}
+
+/* ─── Tabs at the top of the card ─── */
+.auth-tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(109,40,217,0.10);
+  margin-bottom: 0;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 18px 16px 14px;
+  background: none;
+  border: none;
+  border-bottom: 2.5px solid transparent;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease;
+  margin-bottom: -1px;
+}
+
+.auth-tab:hover {
+  color: var(--clr-text-secondary);
+}
+
+.auth-tab.auth-tab-active {
+  color: var(--clr-primary);
+  border-bottom-color: var(--clr-primary);
+}
+
+/* ─── Form header ─── */
+.auth-form-header {
+  padding: 24px 32px 4px;
+}
+
+.auth-form-header h2 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--clr-text);
+  letter-spacing: -0.03em;
+}
+
+.auth-form-header p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--clr-text-secondary);
+}
+
+/* ─── Form ─── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 32px 0;
+  animation: fadeSlideUp 0.35s 0.05s both;
+}
+
+.auth-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--clr-text);
+}
+
+/* ─── Password label row ─── */
+.form-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.password-info-wrap {
+  position: relative;
+}
+
+.password-info-btn {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 1.5px solid var(--clr-border-strong);
+  background: transparent;
+  color: var(--clr-text-muted);
+  font-size: 10px;
+  font-weight: 700;
+  font-style: italic;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: border-color 160ms, background 160ms, color 160ms;
+  padding: 0;
+  line-height: 1;
+}
+
+.password-info-btn:hover,
+.password-info-btn-active {
+  border-color: var(--clr-primary);
+  background: var(--clr-primary-light);
+  color: var(--clr-primary);
+}
+
+/* ─── Password popup ─── */
+.password-criteria-popup {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  background: white;
+  border: 1px solid var(--clr-border-strong);
+  border-radius: var(--r-lg);
+  padding: 14px 16px;
+  min-width: 240px;
+  box-shadow: var(--shadow-lg);
+  z-index: 200;
+  animation: fadeSlideUp 0.16s both;
+}
+
+.password-criteria-title {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--clr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ─── Inline live criteria ─── */
+.password-criteria-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 9px 12px;
+  background: rgba(109,40,217,0.04);
+  border: 1px solid var(--clr-border-strong);
+  border-radius: var(--r-md);
+  animation: fadeSlideUp 0.16s both;
+}
+
+.password-match-row {
+  padding: 2px 0 0;
+}
+
+/* ─── Criterion row ─── */
+.password-criterion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: color 160ms;
+}
+
+.criterion-met   { color: var(--clr-success); }
+.criterion-unmet { color: var(--clr-danger); }
+
+.criterion-icon {
+  font-size: 11px;
+  font-weight: 700;
+  width: 13px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ─── Submit button ─── */
+.auth-submit-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 14.5px;
+  margin-top: 4px;
+  border-radius: var(--r-lg);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+  .auth-card          { border-radius: 16px; }
+  .auth-form          { padding: 20px 24px 0; }
+  .auth-form-header   { padding: 20px 24px 4px; }
+  .auth-form-row      { grid-template-columns: 1fr; }
+}

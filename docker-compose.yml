@@ -1,0 +1,50 @@
+services:
+  db:
+    image: postgres:16
+    container_name: licenta_full_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: licenta
+      POSTGRES_USER: licenta
+      POSTGRES_PASSWORD: licenta
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U licenta"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: licenta_backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/licenta
+      SPRING_DATASOURCE_USERNAME: licenta
+      SPRING_DATASOURCE_PASSWORD: licenta
+      APP_JWT_SECRET: ${JWT_SECRET:-CHANGE_ME_SUPER_SECRET_64_CHARS_MINIMUM____________________}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_MODEL: ${GROQ_MODEL:-llama-3.3-70b-versatile}
+      GROQ_MAX_TOKENS: ${GROQ_MAX_TOKENS:-1200}
+      JDOODLE_CLIENT_ID: ${JDOODLE_CLIENT_ID:-YOUR_CLIENT_ID}
+      JDOODLE_CLIENT_SECRET: ${JDOODLE_CLIENT_SECRET:-YOUR_CLIENT_SECRET}
+    ports:
+      - "8090:8080"
+
+  frontend:
+    build: ./frontend
+    container_name: licenta_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  pgdata:

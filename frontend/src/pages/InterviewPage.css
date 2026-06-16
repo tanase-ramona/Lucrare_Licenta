@@ -1,0 +1,557 @@
+.interview-container {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+/* ─── Progress card ─── */
+.interview-progress-card {
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.interview-progress-info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-4);
+}
+
+.interview-progress-info h1 {
+  margin: 0 0 var(--sp-1);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--clr-text);
+  letter-spacing: -0.02em;
+}
+
+.interview-progress-info p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--clr-text-muted);
+}
+
+.interview-progress-pct {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--clr-primary);
+  flex-shrink: 0;
+  letter-spacing: -0.02em;
+}
+
+.progress-bar-track {
+  height: 6px;
+  background: var(--clr-primary-light);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--gradient-subtle);
+  border-radius: var(--r-pill);
+  transition: width 300ms ease;
+}
+
+/* ─── Question list ─── */
+.question-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.question-card {
+  padding: var(--sp-6);
+  border-left: 3px solid transparent;
+  transition: border-color var(--t);
+}
+
+.question-card:focus-within {
+  border-left-color: var(--clr-accent);
+}
+
+.question-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+}
+
+.question-text {
+  margin: 0 0 var(--sp-5);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.55;
+  color: var(--clr-text);
+  letter-spacing: -0.01em;
+}
+
+/* ─── Answer label ─── */
+.answer-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--clr-text-muted);
+  margin-bottom: var(--sp-2);
+}
+
+/* ─── Textarea ─── */
+.answer-textarea {
+  width: 100%;
+  border: 1px solid var(--clr-border-strong);
+  border-radius: var(--r-lg);
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--clr-text);
+  background: var(--clr-surface-muted);
+  resize: vertical;
+  outline: none;
+  transition: border-color var(--t), box-shadow var(--t), background var(--t);
+  box-sizing: border-box;
+}
+
+.answer-textarea:focus {
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.12);
+  background: var(--clr-surface);
+}
+
+.answer-textarea::placeholder { color: var(--clr-text-muted); }
+
+/* ─── Code editor ─── */
+.code-editor-wrapper {
+  border: 1px solid rgba(15, 23, 42, 0.25);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.code-editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: #111827;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.code-editor-lang {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  font-family: "Fira Code", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.code-editor-hint {
+  font-size: 11px;
+  color: #334155;
+}
+
+.code-editor-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.code-editor-reset {
+  border: 1px solid rgba(100, 116, 139, 0.30);
+  background: rgba(30, 41, 59, 0.80);
+  color: #94a3b8;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--t);
+}
+
+.code-editor-reset:hover {
+  border-color: rgba(148, 163, 184, 0.60);
+  color: #e2e8f0;
+  background: rgba(30, 41, 59, 1);
+}
+
+.answer-code {
+  font-family: "Fira Code", "Consolas", "Courier New", monospace;
+  font-size: 13px;
+  min-height: 220px;
+  background: #0f172a;
+  color: #e2e8f0;
+  border-color: rgba(15,23,42,0.25);
+}
+
+.answer-code:focus {
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.10);
+  background: #0f172a;
+}
+
+/* ─── MCQ ─── */
+.mcq-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.mcq-option {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: 13px 16px;
+  border: 1px solid var(--clr-border-strong);
+  border-radius: var(--r-lg);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--clr-text);
+  background: var(--clr-surface-muted);
+  transition: all var(--t);
+  line-height: 1.55;
+}
+
+.mcq-option:hover {
+  border-color: var(--clr-accent);
+  background: var(--clr-accent-light);
+  color: var(--clr-text);
+}
+
+.mcq-option-selected {
+  border-color: var(--clr-primary);
+  background: var(--clr-primary-light);
+  font-weight: 600;
+  color: var(--clr-primary-dark);
+}
+
+.mcq-option input[type="radio"] {
+  margin-top: 2px;
+  accent-color: var(--clr-primary);
+  flex-shrink: 0;
+}
+
+/* ─── Actions bar ─── */
+.interview-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-4) 0 0;
+}
+
+/* ─── State pages ─── */
+.interview-loading {
+  max-width: 860px;
+  margin: 0 auto;
+  color: var(--clr-text-secondary);
+  font-size: 15px;
+  padding: var(--sp-4);
+}
+
+.interview-error-page {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RUN PANEL — Terminal Test Runner
+───────────────────────────────────────────────────────────── */
+.run-panel {
+  margin-top: var(--sp-4);
+  border: 1px solid #1e293b;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  background: #0d1117;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.30);
+}
+
+/* ── Terminal header ── */
+.run-terminal-header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 10px 16px;
+  background: #161b22;
+  border-bottom: 1px solid #21262d;
+}
+
+.run-terminal-dots {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.run-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+}
+.run-dot-red    { background: #ff5f57; }
+.run-dot-yellow { background: #febc2e; }
+.run-dot-green  { background: #28c840; }
+
+.run-terminal-title {
+  font-family: "Fira Code", monospace;
+  font-size: 12px;
+  color: #8b949e;
+  flex: 1;
+  letter-spacing: 0.04em;
+}
+
+.run-terminal-right {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-shrink: 0;
+}
+
+/* Badge score */
+.run-badge {
+  font-family: "Fira Code", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  letter-spacing: 0.02em;
+}
+.run-badge-ok      { background: rgba(40,200,64,0.15);  color: #3fb950; border: 1px solid rgba(40,200,64,0.25); }
+.run-badge-partial { background: rgba(210,153,34,0.15); color: #e3b341; border: 1px solid rgba(210,153,34,0.25); }
+.run-badge-fail    { background: rgba(248,81,73,0.15);  color: #f85149; border: 1px solid rgba(248,81,73,0.25); }
+
+/* Run button */
+.run-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--r-md);
+  border: 1px solid rgba(109,40,217,0.50);
+  background: rgba(109,40,217,0.20);
+  color: #a78bfa;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--t);
+  font-family: "Fira Code", monospace;
+  letter-spacing: 0.02em;
+}
+.run-btn:hover:not(:disabled) {
+  background: rgba(109,40,217,0.40);
+  border-color: rgba(109,40,217,0.80);
+  color: #c4b5fd;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(109,40,217,0.30);
+}
+.run-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.run-btn-loading {
+  background: rgba(59,130,246,0.15);
+  border-color: rgba(59,130,246,0.35);
+  color: #60a5fa;
+}
+
+.run-play  { font-size: 10px; }
+
+/* Spinner */
+.run-spinner {
+  width: 10px; height: 10px;
+  border: 2px solid rgba(96,165,250,0.3);
+  border-top-color: #60a5fa;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spinSlow 0.8s linear infinite;
+}
+
+/* ── Progress bar ── */
+.run-progress-track {
+  height: 3px;
+  background: #21262d;
+}
+.run-progress-fill {
+  height: 100%;
+  transition: width 500ms ease;
+  border-radius: 0 2px 2px 0;
+}
+.run-fill-ok      { background: linear-gradient(90deg, #28c840, #3fb950); }
+.run-fill-partial { background: linear-gradient(90deg, #e3b341, #fbbf24); }
+.run-fill-fail    { background: linear-gradient(90deg, #f85149, #ef4444); }
+
+/* ── Test cases list ── */
+.run-cases {
+  display: flex;
+  flex-direction: column;
+}
+
+.run-case {
+  border-bottom: 1px solid #21262d;
+}
+.run-case:last-child { border-bottom: none; }
+
+/* ── Case header (clickable) ── */
+.run-case-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--t);
+  gap: var(--sp-3);
+}
+.run-case-header:hover { background: rgba(255,255,255,0.03); }
+
+.run-case-passed .run-case-header:hover { background: rgba(40,200,64,0.04); }
+.run-case-failed .run-case-header:hover { background: rgba(248,81,73,0.04); }
+
+.run-case-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.run-status-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.run-status-pending { background: #484f58; }
+.run-status-passed  { background: #3fb950; box-shadow: 0 0 6px rgba(63,185,80,0.60); }
+.run-status-failed  { background: #f85149; box-shadow: 0 0 6px rgba(248,81,73,0.60); }
+
+.run-case-num {
+  font-family: "Fira Code", monospace;
+  font-size: 11px;
+  color: #8b949e;
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+}
+
+.run-case-desc {
+  font-size: 13px;
+  font-weight: 500;
+  color: #c9d1d9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.run-case-right {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-shrink: 0;
+}
+
+.run-exec-time {
+  font-family: "Fira Code", monospace;
+  font-size: 11px;
+  color: #484f58;
+}
+
+.run-status-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+}
+.run-status-label-passed { background: rgba(40,200,64,0.12); color: #3fb950; }
+.run-status-label-failed { background: rgba(248,81,73,0.12); color: #f85149; }
+
+.run-chevron {
+  font-size: 10px;
+  color: #484f58;
+}
+
+/* ── Case body ── */
+.run-case-body {
+  padding: 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: fadeIn 0.2s both;
+}
+
+/* Input/Output comparison grid */
+.run-io-compare {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.run-io-compare-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* IO block */
+.run-io-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.run-io-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Fira Code", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #8b949e;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+}
+.run-io-label-ok   { color: #3fb950; }
+.run-io-label-fail { color: #f85149; }
+
+.run-io-icon {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.run-io-code {
+  margin: 0;
+  padding: 10px 14px;
+  background: #010409;
+  border: 1px solid #21262d;
+  border-radius: var(--r-md);
+  font-family: "Fira Code", "Consolas", monospace;
+  font-size: 13px;
+  color: #e6edf3;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+  min-height: 40px;
+}
+.run-io-code-ok   {
+  border-color: rgba(40,200,64,0.30);
+  background: rgba(40,200,64,0.05);
+  color: #3fb950;
+}
+.run-io-code-fail {
+  border-color: rgba(248,81,73,0.30);
+  background: rgba(248,81,73,0.05);
+  color: #f85149;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 640px) {
+  .question-card { padding: var(--sp-4); }
+  .interview-actions { flex-direction: column-reverse; }
+  .interview-actions .btn { width: 100%; }
+  .question-text { font-size: 15px; }
+  .run-io-compare-2col { grid-template-columns: 1fr; }
+}

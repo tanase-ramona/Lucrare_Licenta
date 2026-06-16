@@ -1,0 +1,401 @@
+.profilePage {
+  min-height: 100vh;
+  background: var(--clr-bg);
+  padding: var(--sp-8) var(--sp-6);
+}
+
+.profileContainer {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ─── Header ─── */
+.profileHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-6);
+}
+
+.profileTitle {
+  margin: 0 0 var(--sp-1);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.profileSubtitle {
+  margin: 0;
+  color: var(--clr-text-muted);
+  font-size: 14px;
+}
+
+.headerActions {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ─── Buttons (use global classes via .btn/.btn-primary/.btn-outline) ─── */
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--gradient-brand);
+  color: white;
+  box-shadow: var(--shadow-brand);
+  transition: all var(--t);
+}
+.btnPrimary:hover {
+  opacity: 0.90;
+  transform: translateY(-1px);
+}
+.btnPrimary:disabled {
+  opacity: 0.50;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btnOutline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: 10px 20px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--clr-border-strong);
+  background: var(--clr-surface);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--clr-text-secondary);
+  transition: all var(--t);
+}
+.btnOutline:hover {
+  background: var(--clr-surface-muted);
+  color: var(--clr-text);
+  transform: translateY(-1px);
+}
+
+/* ─── Card ─── */
+.card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.cardPad {
+  padding: var(--sp-6);
+}
+
+/* ─── Section labels ─── */
+.sectionTitle {
+  margin: 0 0 var(--sp-1);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--clr-text);
+  letter-spacing: -0.01em;
+}
+
+.sectionSubtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--clr-text-muted);
+}
+
+/* ─── Grid ─── */
+.grid {
+  margin-top: var(--sp-5);
+  margin-bottom: var(--sp-5);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-5);
+}
+
+@media (min-width: 980px) {
+  .grid {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+}
+
+.profileFormGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+}
+
+/* ─── Chips ─── */
+.chips {
+  margin-top: var(--sp-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  border: 1px solid var(--clr-border-strong);
+  background: var(--clr-surface-muted);
+  color: var(--clr-text-secondary);
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all var(--t);
+}
+
+.chip:hover {
+  border-color: var(--clr-accent);
+  color: var(--clr-accent-hover);
+  background: var(--clr-accent-light);
+  transform: translateY(-1px);
+}
+
+.chipActive {
+  background: var(--gradient-brand);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(29, 78, 216, 0.22);
+}
+.chipActive:hover {
+  opacity: 0.88;
+  color: white;
+  background: var(--gradient-brand);
+}
+
+/* ─── Form fields ─── */
+.field {
+  margin-top: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--clr-text);
+}
+
+.input {
+  padding: 11px 14px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--clr-border-strong);
+  background: var(--clr-surface);
+  color: var(--clr-text);
+  font-size: 14px;
+  outline: none;
+  transition: border-color var(--t), box-shadow var(--t);
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+}
+.input:focus {
+  border-color: var(--clr-primary);
+  box-shadow: 0 0 0 3px var(--clr-primary-light);
+}
+.input::placeholder { color: var(--clr-text-muted); }
+.input:disabled {
+  color: var(--clr-text-muted);
+  background: var(--clr-surface-muted);
+  cursor: not-allowed;
+}
+
+.hint {
+  margin-top: var(--sp-2);
+  color: var(--clr-text-muted);
+  font-size: 12px;
+}
+
+.errorBox {
+  margin-top: var(--sp-3);
+  padding: 12px 14px;
+  border-radius: var(--r-md);
+  background: var(--clr-danger-bg);
+  border: 1px solid var(--clr-danger-border);
+  color: var(--clr-danger);
+  font-size: 13px;
+}
+
+.successBox {
+  margin-top: var(--sp-3);
+  padding: 12px 14px;
+  border-radius: var(--r-md);
+  background: var(--clr-success-bg);
+  border: 1px solid var(--clr-success-border);
+  color: var(--clr-success);
+  font-size: 13px;
+}
+
+.rowActions {
+  margin-top: var(--sp-5);
+  display: flex;
+  gap: var(--sp-3);
+  justify-content: flex-end;
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--clr-border);
+}
+
+/* ─── Preview section ─── */
+.previewRow {
+  margin-top: var(--sp-4);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-3);
+}
+
+@media (min-width: 720px) {
+  .previewRow {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.miniBox {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+  background: var(--clr-surface-muted);
+}
+
+.miniLabel {
+  font-size: 11px;
+  color: var(--clr-text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: var(--sp-2);
+}
+
+.valueText {
+  font-weight: 700;
+  color: var(--clr-text);
+  font-size: 14px;
+}
+
+/* ─── Badges ─── */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.badge {
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(29, 78, 216, 0.18);
+  background: var(--clr-primary-light);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--clr-primary);
+}
+
+.badgeMuted {
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--clr-border);
+  background: var(--clr-surface-muted);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+}
+
+.footerNote {
+  margin-top: var(--sp-4);
+  color: var(--clr-text-muted);
+  font-size: 12px;
+}
+
+/* ── Password grid ── */
+.pwdGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+  margin-top: var(--sp-4);
+}
+
+/* ── Progress chart ── */
+.prof-chart-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-5);
+}
+
+.prof-avg-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.prof-avg-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--clr-text-muted);
+}
+.prof-avg-value {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.prof-avg-good { color: var(--clr-success); }
+.prof-avg-mid  { color: var(--clr-warning); }
+.prof-avg-low  { color: var(--clr-danger);  }
+
+.prof-tooltip {
+  background: #0f172a;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: var(--r-lg);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #e2e8f0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+.prof-tooltip-label {
+  margin: 0 0 4px;
+  font-weight: 700;
+  color: white;
+  font-size: 12px;
+}
+
+.prof-chart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-10) 0;
+  color: var(--clr-text-muted);
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .pwdGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .profilePage { padding: var(--sp-5) var(--sp-4); }
+  .profileHeader { flex-direction: column; }
+  .headerActions { align-self: flex-start; }
+  .profileFormGrid { grid-template-columns: 1fr; }
+  .prof-chart-header { flex-direction: column; }
+  .prof-avg-badge { align-items: flex-start; }
+}

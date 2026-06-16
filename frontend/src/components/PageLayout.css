@@ -1,0 +1,15 @@
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--clr-bg);
+}
+
+.app-main {
+  flex: 1;
+  padding: var(--sp-8) var(--sp-6);
+}
+
+@media (max-width: 640px) {
+  .app-main { padding: var(--sp-5) var(--sp-4); }
+}
