@@ -7,6 +7,7 @@ frontend/.env.*.local
 
 # ── Backend ───────────────────────────────────
 backend/target/
+backend/.m2/
 backend/.env
 *.class
 *.jar
@@ -21,6 +22,7 @@ backend/.env
 .idea/
 *.iml
 .vscode/
+.claude/
 .DS_Store
 Thumbs.db
 
