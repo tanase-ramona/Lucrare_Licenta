@@ -3,15 +3,15 @@
   top: 0;
   z-index: 200;
   height: var(--navbar-h);
-  background: rgba(245, 243, 255, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(109, 40, 217, 0.12);
-  box-shadow: 0 1px 0 rgba(109,40,217,0.08), 0 4px 20px rgba(109,40,217,0.06);
+  background: rgba(10, 5, 30, 0.60);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.05), 0 4px 20px rgba(0,0,0,0.25);
   animation: fadeIn 0.4s both;
 }
 
-/* Bară de progres animată la baza navbar-ului */
+/* Shimmer line at bottom */
 .navbar::after {
   content: '';
   position: absolute;
@@ -20,13 +20,13 @@
   width: 100%;
   background: linear-gradient(90deg,
     transparent 0%,
-    var(--clr-primary) 30%,
-    var(--clr-accent) 60%,
+    rgba(109,40,217,0.80) 30%,
+    rgba(139,92,246,0.60) 60%,
     transparent 100%
   );
   background-size: 200% 100%;
   animation: shimmer 3s linear infinite;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .navbar-inner {
@@ -44,13 +44,13 @@
   font-size: 17px;
   font-weight: 800;
   letter-spacing: -0.03em;
-  color: var(--clr-text);
+  color: white;
   cursor: pointer;
   user-select: none;
   transition: color var(--t);
   justify-self: start;
 }
-.navbar-brand:hover { color: var(--clr-primary); }
+.navbar-brand:hover { color: rgba(200, 180, 255, 1); }
 
 /* ─── Links — centered column ─── */
 .navbar-links {
@@ -69,26 +69,26 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  color: var(--clr-text-secondary);
+  color: rgba(255, 255, 255, 0.65);
   transition: color var(--t), background var(--t);
   white-space: nowrap;
 }
 .nav-link:hover {
-  color: var(--clr-text);
-  background: rgba(109,40,217,0.06);
+  color: white;
+  background: rgba(255, 255, 255, 0.10);
 }
 
 .nav-link-active {
-  color: var(--clr-primary);
+  color: white;
   font-weight: 600;
-  background: rgba(109,40,217,0.08);
+  background: rgba(255, 255, 255, 0.13);
 }
 .nav-link-active:hover {
-  background: rgba(109,40,217,0.12);
-  color: var(--clr-primary);
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
 }
 
-/* Active indicator */
+/* Active indicator dot */
 .nav-link-active::after {
   content: '';
   position: absolute;
@@ -97,24 +97,21 @@
   transform: translateX(-50%);
   width: 4px; height: 4px;
   border-radius: 50%;
-  background: var(--clr-primary);
+  background: rgba(200, 180, 255, 0.90);
 }
 
 /* ─── Admin link ─── */
 .nav-link-admin {
-  color: var(--clr-primary);
-  background: rgba(109,40,217,0.06);
+  color: rgba(200, 180, 255, 0.90);
+  background: rgba(109, 40, 217, 0.18);
   font-weight: 600;
 }
 .nav-link-admin:hover {
-  background: rgba(109,40,217,0.12);
-  color: var(--clr-primary-dark);
+  background: rgba(109, 40, 217, 0.28);
+  color: white;
 }
-.nav-link-admin.nav-link-active { background: rgba(109,40,217,0.10); }
-.nav-link-admin.nav-link-active::after { background: var(--clr-primary); }
-
-/* ─── New Interview — same style as other links ─── */
-.nav-link-new { }
+.nav-link-admin.nav-link-active { background: rgba(109,40,217,0.25); }
+.nav-link-admin.nav-link-active::after { background: rgba(200,180,255,0.90); }
 
 /* ─── Right section ─── */
 .navbar-right {
@@ -136,30 +133,30 @@
   flex-shrink: 0;
   letter-spacing: 0.02em;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(109,40,217,0.30);
+  box-shadow: 0 2px 8px rgba(109,40,217,0.40);
   transition: transform var(--t), box-shadow var(--t);
 }
 .nav-avatar:hover {
   transform: scale(1.08);
-  box-shadow: 0 4px 14px rgba(109,40,217,0.40);
+  box-shadow: 0 4px 14px rgba(109,40,217,0.55);
 }
 
 .nav-logout {
   padding: 7px 14px;
   border-radius: var(--r-md);
-  border: 1px solid var(--clr-border-strong);
+  border: 1px solid rgba(255, 255, 255, 0.20);
   background: transparent;
   cursor: pointer;
   font-size: 13px;
   font-weight: 500;
-  color: var(--clr-text-secondary);
+  color: rgba(255, 255, 255, 0.65);
   transition: all var(--t);
   white-space: nowrap;
 }
 .nav-logout:hover {
-  background: var(--clr-danger-bg);
-  border-color: var(--clr-danger-border);
-  color: var(--clr-danger);
+  background: rgba(220, 38, 38, 0.20);
+  border-color: rgba(220, 38, 38, 0.40);
+  color: #fca5a5;
 }
 
 /* ─── Responsive ─── */

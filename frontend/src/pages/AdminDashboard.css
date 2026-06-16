@@ -2,7 +2,33 @@
 .adm-layout {
   display: flex;
   min-height: 100vh;
-  background: var(--clr-bg);
+  position: relative;
+}
+
+.adm-layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('../assets/images/login-bg.png');
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(1) brightness(0.38);
+  z-index: 0;
+}
+
+.adm-layout::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    150deg,
+    rgba(76, 29, 149, 0.62) 0%,
+    rgba(109, 40, 217, 0.48) 40%,
+    rgba(8, 70, 130, 0.28) 80%,
+    rgba(8, 70, 130, 0.12) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* ─── Sidebar ─── */
@@ -155,12 +181,16 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 /* ─── Top bar ─── */
 .adm-topbar {
-  background: var(--clr-surface);
-  border-bottom: 1px solid var(--clr-border);
+  background: rgba(10, 5, 30, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
   padding: var(--sp-4) var(--sp-8);
   display: flex;
   align-items: center;
@@ -175,14 +205,14 @@
   margin: 0 0 2px;
   font-size: 20px;
   font-weight: 800;
-  color: var(--clr-text);
+  color: white;
   letter-spacing: -0.025em;
 }
 
 .adm-topbar-sub {
   margin: 0;
   font-size: 13px;
-  color: var(--clr-text-muted);
+  color: rgba(255, 255, 255, 0.55);
 }
 
 /* ─── Period filter ─── */
@@ -211,8 +241,8 @@
 .adm-period-filter {
   display: flex;
   gap: 4px;
-  background: var(--clr-surface-muted);
-  border: 1px solid var(--clr-border);
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--r-lg);
   padding: 3px;
 }
@@ -222,7 +252,7 @@
   border: none;
   border-radius: var(--r-md);
   background: transparent;
-  color: var(--clr-text-secondary);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
@@ -231,8 +261,8 @@
 }
 
 .adm-period-btn:hover {
-  background: var(--clr-surface);
-  color: var(--clr-text);
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
 }
 
 .adm-period-btn-active {

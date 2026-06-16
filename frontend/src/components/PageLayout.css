@@ -2,7 +2,41 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--clr-bg);
+  position: relative;
+}
+
+/* Fixed background image — same theme as landing page */
+.app-layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('../assets/images/login-bg.png');
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(1) brightness(0.38);
+  z-index: 0;
+}
+
+/* Purple gradient overlay */
+.app-layout::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    150deg,
+    rgba(76, 29, 149, 0.62) 0%,
+    rgba(109, 40, 217, 0.48) 40%,
+    rgba(8, 70, 130, 0.28) 80%,
+    rgba(8, 70, 130, 0.12) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* All children above the fixed bg */
+.app-layout > * {
+  position: relative;
+  z-index: 1;
 }
 
 .app-main {
