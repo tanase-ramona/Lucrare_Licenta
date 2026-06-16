@@ -31,7 +31,7 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         ensureLevels("Intern", "Junior", "Mid", "Senior");
-        ensureLanguages("Java", "C", "C++", "Python", "JavaScript");
+        ensureLanguages("Java", "C", "C++", "Python", "JavaScript", "TypeScript", "NodeJS");
         ensurePositions("Backend", "Frontend", "Fullstack", "QA", "Student", "Graduate");
     }
 

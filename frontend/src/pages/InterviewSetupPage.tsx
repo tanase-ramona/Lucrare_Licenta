@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api/api";
 import PageLayout from "../components/PageLayout";
@@ -186,14 +186,6 @@ export default function InterviewSetupPage() {
                   </div>
                 </li>
               </ul>
-            </div>
-
-            <div className="card setup-tip">
-              <span className="setup-tip-icon">💡</span>
-              <p>
-                Răspunde la toate întrebările pentru a obține cel mai bun
-                feedback AI posibil.
-              </p>
             </div>
           </div>
         </div>
